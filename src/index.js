@@ -40,6 +40,7 @@ class DropdownTreeSelect extends Component {
     onNodeToggle: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
+    onInputChange: PropTypes.func,
     mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -138,6 +139,11 @@ class DropdownTreeSelect extends Component {
   }
 
   onInputChange = value => {
+    if (typeof this.props.onInputChange === 'function') {
+      const allNodesHidden = this.props.data.length === 0
+      this.setState({ allNodesHidden })
+      return this.props.onInputChange(value)
+    }
     const { allNodesHidden, tree } = this.treeManager.filterTree(
       value,
       this.props.keepTreeOnSearch,

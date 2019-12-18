@@ -40,6 +40,8 @@ declare module 'react-dropdown-tree-select' {
      * Calls the handler with the current node object and all selected nodes (if any)
      */
     onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[]) => void
+    /** Optional handler to override the default tree filter behavior, allowing it to be handled externally. */
+    onInputChange?: (searchTerm: string) => void
     /**  Fired on click of the action */
     onAction?: (currentNode: TreeNode, currentAction: NodeAction) => void
     /** Fires when a node is expanded or collapsed.
