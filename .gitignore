@@ -48,3 +48,8 @@ dist
 
 # Mac crap
 .DS_Store
+
+# MaintainX-Fork
+!dist
+dist/stats.json
+dist/report.html
