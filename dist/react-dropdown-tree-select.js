@@ -2571,7 +2571,8 @@
                 n.setState(function(e) {
                   return $e(
                     { showDropdown: /initial|always/.test(o) || !0 === e.showDropdown },
-                    n.treeManager.getTreeAndTags()
+                    n.treeManager.getTreeAndTags(),
+                    { allNodesHidden: 0 === t.length }
                   )
                 })
             }),
@@ -2597,15 +2598,12 @@
               'always' !== n.props.showDropdown && d(e, n.node) && n.handleClick()
             }),
             (n.onInputChange = function(e) {
-              if ('function' == typeof n.props.onInputChange) {
-                var t = 0 === n.props.data.length
-                return n.setState({ allNodesHidden: t }), n.props.onInputChange(e)
-              }
-              var r = n.treeManager.filterTree(e, n.props.keepTreeOnSearch, n.props.keepChildrenOnSearch),
-                o = r.allNodesHidden,
-                a = r.tree,
-                i = e.length > 0
-              n.setState({ tree: a, searchModeOn: i, allNodesHidden: o })
+              if ('function' == typeof n.props.onInputChange) return n.props.onInputChange(e)
+              var t = n.treeManager.filterTree(e, n.props.keepTreeOnSearch, n.props.keepChildrenOnSearch),
+                r = t.allNodesHidden,
+                o = t.tree,
+                a = e.length > 0
+              n.setState({ tree: o, searchModeOn: a, allNodesHidden: r })
             }),
             (n.onTagRemove = function(e, t) {
               var r = n.state.tags

@@ -84,6 +84,7 @@ class DropdownTreeSelect extends Component {
     this.setState(prevState => ({
       showDropdown: /initial|always/.test(showDropdown) || prevState.showDropdown === true,
       ...this.treeManager.getTreeAndTags(),
+      allNodesHidden: data.length === 0,
     }))
   }
 
@@ -140,8 +141,6 @@ class DropdownTreeSelect extends Component {
 
   onInputChange = value => {
     if (typeof this.props.onInputChange === 'function') {
-      const allNodesHidden = this.props.data.length === 0
-      this.setState({ allNodesHidden })
       return this.props.onInputChange(value)
     }
     const { allNodesHidden, tree } = this.treeManager.filterTree(
