@@ -238,6 +238,10 @@ class DropdownTreeSelect extends Component {
       e.persist()
       this.handleClick(null, () => this.onKeyboardKeyDown(e))
       if (/\w/i.test(e.key)) return
+    } else if (e.key === 'Enter') {
+      // Pressing Enter selects the first node
+      const firstNodeId = tm.tree.keys().next().value
+      this.onCheckboxChange(firstNodeId, true)
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
       const newFocus = tm.handleNavigationKey(
         currentFocus,
