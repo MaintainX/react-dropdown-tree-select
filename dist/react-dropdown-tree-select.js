@@ -910,8 +910,7 @@
                   o = void 0 === r ? {} : r,
                   a = e.disabled,
                   i = e.readOnly,
-                  l =
-                    e.children || c.a.createElement('span', { className: 'placeholder' }, o.placeholder || 'Choose...')
+                  l = e.children
                 return c.a.createElement(
                   'ul',
                   { className: 'tag-list' },
@@ -933,7 +932,7 @@
                       )
                     })
                   })(t, n, i, a, o.labelRemove),
-                  c.a.createElement('li', { className: 'tag-item' }, l)
+                  l
                 )
               },
             },
@@ -2664,17 +2663,20 @@
                 u = n.treeManager,
                 h = s ? u.matchTree : u.tree
               if (i || (!Ue.isValidKey(e.key, !1) && !/^\w$/i.test(e.key)))
-                if (i && Ue.isValidKey(e.key, !0)) {
-                  var d = u.handleNavigationKey(c, h, e.key, r, !s, n.onCheckboxChange, n.onNodeToggle)
-                  d !== c && n.setState({ currentFocus: d })
+                if ('Enter' === e.key) {
+                  var d = u.tree.keys().next().value
+                  n.onCheckboxChange(d, !0)
+                } else if (i && Ue.isValidKey(e.key, !0)) {
+                  var p = u.handleNavigationKey(c, h, e.key, r, !s, n.onCheckboxChange, n.onNodeToggle)
+                  p !== c && n.setState({ currentFocus: p })
                 } else {
                   if (i && ['Escape', 'Tab'].indexOf(e.key) > -1)
                     return void ('simpleSelect' === o && h.has(c)
                       ? n.onCheckboxChange(c, !0)
                       : ((n.keepDropdownActive = !1), n.handleClick()))
                   if ('Backspace' !== e.key || !l.length || 0 !== n.searchInput.value.length) return
-                  var p = l.pop()
-                  n.onCheckboxChange(p._id, !1)
+                  var f = l.pop()
+                  n.onCheckboxChange(f._id, !1)
                 }
               else if (
                 (e.persist(),
@@ -2747,7 +2749,8 @@
                     mode: o,
                     clientId: this.clientId,
                   },
-                  p = c.a.createElement(
+                  p = 'radioSelect' === o && 1 === h.length,
+                  f = c.a.createElement(
                     m,
                     $e(
                       {
@@ -2787,13 +2790,23 @@
                     c.a.createElement(
                       I,
                       $e({ onTrigger: this.onTrigger, showDropdown: s }, d, { tags: h }),
-                      c.a.createElement(E, $e({ tags: h, onTagRemove: this.onTagRemove }, d), !i && p)
+                      c.a.createElement(
+                        E,
+                        $e({ tags: h, onTagRemove: this.onTagRemove }, d),
+                        i
+                          ? c.a.createElement(
+                              'li',
+                              { class: 'tag-item' },
+                              c.a.createElement('span', { className: 'placeholder' }, a.placeholder || 'Choose...')
+                            )
+                          : c.a.createElement('li', { className: 'tag-item ' + (p ? 'hidden' : '') }, f)
+                      )
                     ),
                     s &&
                       c.a.createElement(
                         'div',
                         $e({ className: 'dropdown-content' }, this.getAriaAttributes()),
-                        i && p,
+                        i && f,
                         this.state.allNodesHidden
                           ? c.a.createElement('span', { className: 'no-matches' }, a.noMatches || 'No matches found')
                           : c.a.createElement(

@@ -38,6 +38,9 @@
   display: inline-block;
   margin: 4px;
 }
+.tag-item.hidden {
+  display: none;
+}
 .tag-item .search {
   border: none;
   border-bottom: 1px solid #ccc;

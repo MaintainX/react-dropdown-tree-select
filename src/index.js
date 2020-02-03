@@ -292,6 +292,8 @@ class DropdownTreeSelect extends Component {
 
     const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId }
 
+    const hideSearchInput = mode === 'radioSelect' && tags.length === 1
+
     const searchInput = (
       <Input
         inputRef={el => {
@@ -321,7 +323,13 @@ class DropdownTreeSelect extends Component {
         >
           <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
             <Tags tags={tags} onTagRemove={this.onTagRemove} {...commonProps}>
-              {!inlineSearchInput && searchInput}
+              {inlineSearchInput ? (
+                <li class="tag-item">
+                  <span className="placeholder">{texts.placeholder || 'Choose...'}</span>
+                </li>
+              ) : (
+                <li className={`tag-item ${hideSearchInput ? 'hidden' : ''}`}>{searchInput}</li>
+              )}
             </Tags>
           </Trigger>
           {showDropdown && (
