@@ -58,7 +58,7 @@ class Tag extends PureComponent {
           aria-labelledby={`${buttonId} ${tagId}`}
           aria-disabled={isDisabled}
         >
-          x
+          &times;
         </button>
       </span>
     )

@@ -836,7 +836,7 @@
                         'aria-labelledby': s + ' ' + l,
                         'aria-disabled': h,
                       },
-                      'x'
+                      '×'
                     )
                   )
                 },
