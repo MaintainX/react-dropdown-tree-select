@@ -35,6 +35,7 @@ class DropdownTreeSelect extends Component {
     }),
     showDropdown: PropTypes.oneOf(['default', 'initial', 'always']),
     className: PropTypes.string,
+    focusInputOnMount: PropTypes.bool,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     onNodeToggle: PropTypes.func,
@@ -100,6 +101,12 @@ class DropdownTreeSelect extends Component {
 
   componentWillMount() {
     this.initNewProps(this.props)
+  }
+
+  componentDidMount() {
+    if (this.props.focusInputOnMount) {
+      this.searchInput.focus()
+    }
   }
 
   componentWillUnmount() {
