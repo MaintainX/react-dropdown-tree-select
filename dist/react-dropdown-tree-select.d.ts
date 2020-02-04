@@ -29,6 +29,8 @@ declare module 'react-dropdown-tree-select' {
      * If set to always, shows the dropdown when rendered, and keeps it visible at all times. Toggling dropdown is disabled.
      */
     showDropdown?: ShowDropdownState
+    /** Focus the search input on mount */
+    focusInputOnMount?: boolean
     /** Additional classname for container.
      * The container renders with a default classname of react-dropdown-tree-select
      */

@@ -35,6 +35,7 @@ class DropdownTreeSelect extends Component {
     }),
     showDropdown: PropTypes.oneOf(['default', 'initial', 'always']),
     className: PropTypes.string,
+    focusInputOnMount: PropTypes.bool,
     onChange: PropTypes.func,
     onAction: PropTypes.func,
     onNodeToggle: PropTypes.func,
@@ -100,6 +101,12 @@ class DropdownTreeSelect extends Component {
 
   componentWillMount() {
     this.initNewProps(this.props)
+  }
+
+  componentDidMount() {
+    if (this.props.focusInputOnMount) {
+      this.searchInput.focus()
+    }
   }
 
   componentWillUnmount() {
@@ -238,6 +245,10 @@ class DropdownTreeSelect extends Component {
       e.persist()
       this.handleClick(null, () => this.onKeyboardKeyDown(e))
       if (/\w/i.test(e.key)) return
+    } else if (e.key === 'Enter') {
+      // Pressing Enter selects the first node
+      const firstNodeId = tm.tree.keys().next().value
+      this.onCheckboxChange(firstNodeId, true)
     } else if (showDropdown && keyboardNavigation.isValidKey(e.key, true)) {
       const newFocus = tm.handleNavigationKey(
         currentFocus,
@@ -288,6 +299,8 @@ class DropdownTreeSelect extends Component {
 
     const commonProps = { disabled, readOnly, activeDescendant, texts, mode, clientId: this.clientId }
 
+    const hideSearchInput = mode === 'radioSelect' && tags.length === 1
+
     const searchInput = (
       <Input
         inputRef={el => {
@@ -317,7 +330,13 @@ class DropdownTreeSelect extends Component {
         >
           <Trigger onTrigger={this.onTrigger} showDropdown={showDropdown} {...commonProps} tags={tags}>
             <Tags tags={tags} onTagRemove={this.onTagRemove} {...commonProps}>
-              {!inlineSearchInput && searchInput}
+              {inlineSearchInput ? (
+                <li class="tag-item">
+                  <span className="placeholder">{texts.placeholder || 'Choose...'}</span>
+                </li>
+              ) : (
+                <li className={`tag-item ${hideSearchInput ? 'hidden' : ''}`}>{searchInput}</li>
+              )}
             </Tags>
           </Trigger>
           {showDropdown && (
