@@ -42,6 +42,8 @@ declare module 'react-dropdown-tree-select' {
      * Calls the handler with the current node object and all selected nodes (if any)
      */
     onChange?: (currentNode: TreeNode, selectedNodes: TreeNode[]) => void
+    /** Optional handler for managing clicks on create option button */
+    onCreateOption?: () => void
     /** Optional handler to override the default tree filter behavior, allowing it to be handled externally. */
     onInputChange?: (searchTerm: string) => void
     /**  Fired on click of the action */
@@ -164,6 +166,8 @@ declare module 'react-dropdown-tree-select' {
     label?: string
     /** The text to display for `aria-label` on tag delete buttons which is combined with `aria-labelledby` pointing to the node label. Defaults to `Remove */
     labelRemove?: string
+    /** The text to display in the create option button */
+    createOption?: string
   }
 
   export interface NodeAction {

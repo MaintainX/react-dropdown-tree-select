@@ -46,7 +46,7 @@ class Tag extends PureComponent {
 
     return (
       <span className="tag" id={tagId} aria-label={label}>
-        {label}
+        <span className="tag-label">{label}</span>
         <button
           id={buttonId}
           onClick={!isDisabled ? this.handleClick : undefined}

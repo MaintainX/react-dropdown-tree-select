@@ -32,6 +32,7 @@ class DropdownTreeSelect extends Component {
       noMatches: PropTypes.string,
       label: PropTypes.string,
       labelRemove: PropTypes.string,
+      createOption: PropTypes.string,
     }),
     showDropdown: PropTypes.oneOf(['default', 'initial', 'always']),
     className: PropTypes.string,
@@ -42,6 +43,7 @@ class DropdownTreeSelect extends Component {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onInputChange: PropTypes.func,
+    onCreateOption: PropTypes.func,
     mode: PropTypes.oneOf(['multiSelect', 'simpleSelect', 'radioSelect', 'hierarchical']),
     showPartiallySelected: PropTypes.bool,
     disabled: PropTypes.bool,
@@ -55,7 +57,9 @@ class DropdownTreeSelect extends Component {
     onFocus: () => {},
     onBlur: () => {},
     onChange: () => {},
-    texts: {},
+    texts: {
+      createOption: 'Create new',
+    },
     showDropdown: 'default',
     inlineSearchInput: false,
   }
@@ -357,6 +361,15 @@ class DropdownTreeSelect extends Component {
                   showPartiallySelected={this.props.showPartiallySelected}
                   {...commonProps}
                 />
+              )}
+              {this.props.onCreateOption && (
+                <button className="create-button" onClick={this.props.onCreateOption}>
+                  <svg className="create-icon" width="16" height="16" viewBox="0 0 16 16">
+                    <circle fill="inherit" cx="8" cy="8" r="8" />
+                    <path fill="white" d="M9 4H7v3H4v2h3v3h2V9h3V7H9z" />
+                  </svg>
+                  {texts.createOption}
+                </button>
               )}
             </div>
           )}
